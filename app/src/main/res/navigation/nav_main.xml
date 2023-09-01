@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.ui.splash.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+
+    </fragment>
+    <action
+        android:id="@+id/action_to_main"
+        app:destination="@id/mainFragment" />
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.ui.main.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" />
+
+    <fragment
+        android:id="@+id/favorateFragment"
+        android:name="com.ui.favorate.FavorateFragment"
+        android:label="fragment_favorate"
+        tools:layout="@layout/fragment_favorate" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.ui.search.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
+    <action
+        android:id="@+id/action_to_detail"
+        app:destination="@id/detailFragment" />
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.ui.detail.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" >
+        <argument
+            android:name="movieId"
+            app:argType="integer" />
+    </fragment>
+</navigation>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_marginHorizontal="@dimen/_2mdp"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_340mdp"
+        android:id="@+id/cardView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:cardElevation="@dimen/_2mdp"
+        android:background="@drawable/shape_gradient"
+        app:cardCornerRadius="@dimen/_6mdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true" 
+            android:id="@+id/imgCover"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50mdp"
+            android:layout_gravity="bottom">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/shape_gradient"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50mdp"
+            android:layout_gravity="top">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/shape_gradient1"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtInfo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/shape_more_info"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginRight="@dimen/_9mdp"
+        android:text="اطلاعات بیشتر"
+        android:layout_marginBottom="@dimen/_10mdp"
+        app:layout_constraintTop_toBottomOf="@id/cardView"
+        android:paddingVertical="@dimen/_5mdp"
+        android:textColor="@color/jordyBlue"
+        android:layout_gravity="bottom|center"
+        android:paddingHorizontal="@dimen/_5mdp"
+        android:textSize="@dimen/_14mdp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

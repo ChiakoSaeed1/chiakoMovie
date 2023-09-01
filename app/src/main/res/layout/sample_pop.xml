@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_3mdp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="@dimen/_140mdp"
+        android:layout_height="@dimen/_150mdp"
+        android:id="@+id/cardView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:cardElevation="@dimen/_3mdp"
+        app:cardCornerRadius="@dimen/_5mdp"
+        android:layout_margin="@dimen/_5mdp">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/imgCover"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"/>
+
+    </androidx.cardview.widget.CardView>
+    <TextView
+        android:layout_width="0dp"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtTitle"
+        app:layout_constraintEnd_toEndOf="@id/cardView"
+        android:layout_marginTop="@dimen/_5mdp"
+        android:elevation="@dimen/_2mdp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textSize="@dimen/_13mdp"
+        android:layout_marginStart="@dimen/_2mdp"
+        android:textColor="@color/flashWhite"
+        app:layout_constraintStart_toStartOf="@id/cardView"
+        app:layout_constraintTop_toBottomOf="@id/cardView"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
