@@ -54,7 +54,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //callApi
-        viewModel.loadTopData(5)
+        cacheTopMovie()
         viewModel.loadGenres()
         viewModel.loadPopData(9)
         viewModel.loadRecData(1)
@@ -76,14 +76,7 @@ class MainFragment : Fragment() {
 /*
                               autoScroll(it.items)
 */
-                                recTop.isAdapter(
-                                    LinearLayoutManager(
-                                        requireContext(),
-                                        LinearLayoutManager.HORIZONTAL,
-                                        false
-                                    ),
-                                    adapterTop
-                                )
+
                                 adapterTop.setonItemClickListener {data->
                                     val action=MainFragmentDirections.actionToDetail(data.id!!)
                                     findNavController().navigate(action)
@@ -232,6 +225,25 @@ class MainFragment : Fragment() {
                     index=0
                 }
                 binding.recTop.smoothScrollToPosition(index)
+            }
+        }
+    }
+
+    //cache
+    private fun cacheTopMovie(){
+        viewModel.readCache.observe(viewLifecycleOwner){dataBase->
+            binding.apply {
+                recTop.isAdapter(
+                    LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false), adapterTop
+                )
+                if (dataBase.isNotEmpty()){
+                    dataBase[0].data?.let {
+                        adapterTop.setData(it)
+                        autoScroll(it)
+                    }
+                }else{
+                    viewModel.loadTopData(5)
+                }
             }
         }
     }
