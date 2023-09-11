@@ -27,24 +27,29 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class DetailFragment : Fragment() {
     //binding
-    private var _binding:FragmentDetailBinding?=null
+    private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
+
     //args
-    private val args:DetailFragmentArgs by navArgs()
-    var movieId=0
+    private val args: DetailFragmentArgs by navArgs()
+    var movieId = 0
+
     //viewModel
-    private val viewModel:ViewModelDetail by viewModels()
+    private val viewModel: ViewModelDetail by viewModels()
+
     @Inject
     lateinit var adapterActor: AdapterActor
+
     //more
-    private var isFav=false
+    private var isFav = false
+
     @Inject
     lateinit var entity: MovieEntity
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding=FragmentDetailBinding.inflate(layoutInflater)
+        _binding = FragmentDetailBinding.inflate(layoutInflater)
         return binding.root
     }
 
@@ -52,47 +57,55 @@ class DetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         //api
         args.let {
-            movieId=args.movieId
+            movieId = args.movieId
         }
         viewModel.loadDetail(movieId)
         binding.apply {
             txtBack.setOnClickListener {
                 findNavController().popBackStack()
             }
-            viewModel.detailData.observe(viewLifecycleOwner){data->
-                when(data){
-                    is MyResponse.LOADING->{
-                        load.isShown(true,container)
+            viewModel.detailData.observe(viewLifecycleOwner) { data ->
+                when (data) {
+                    is MyResponse.LOADING -> {
+                        load.isShown(true, container)
                     }
-                    is MyResponse.SUCCESS->{
-                        load.isShown(false,container)
+                    is MyResponse.SUCCESS -> {
+                        load.isShown(false, container)
 
                         data.data?.let {
-                            entity.id=it.id!!
-                            entity.image=it.poster!!
-                            entity.title=it.title!!
+                            entity.id = it.id!!
+                            entity.image = it.poster!!
+                            entity.title = it.title!!
                             binding.apply {
                                 adapterActor.setData(it.images!!)
-                                recActor.isAdapter(LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false),
-                                adapterActor)
-                                imgCoverBig.load(it.poster){crossfade(true)
-                                crossfade(500)}
-                                imgCoverSmall.load(it.poster){crossfade(true)
-                                    crossfade(500)}
-                                txtTitle.text=it.title
-                                txtCalender.text=it.year
-                                txtTime.text=it.runtime
-                                txtGenres.text=it.type
-                                txtSummary.text=it.plot
-
-
+                                recActor.isAdapter(
+                                    LinearLayoutManager(
+                                        requireContext(),
+                                        LinearLayoutManager.HORIZONTAL,
+                                        false
+                                    ),
+                                    adapterActor
+                                )
+                                imgCoverBig.load(it.poster) {
+                                    crossfade(true)
+                                    crossfade(500)
+                                }
+                                imgCoverSmall.load(it.poster) {
+                                    crossfade(true)
+                                    crossfade(500)
+                                }
+                                txtTitle.text = it.title
+                                txtCalender.text = it.year
+                                txtTime.text = it.runtime
+                                txtGenres.text = it.type
+                                txtSummary.text = it.plot
 
 
                             }
                         }
                     }
-                    is MyResponse.ERROR->{
-                        load.isShown(false,container)
+                    is MyResponse.ERROR -> {
+                        load.isShown(false, container)
 
                     }
                 }
@@ -100,12 +113,17 @@ class DetailFragment : Fragment() {
             }
             /*fav*/
             viewModel.loadExist(movieId)
-            viewModel.isFavorite.observe(viewLifecycleOwner){data->
-                isFav=data
-                if (data){
-                    txtFav.setColorFilter(ContextCompat.getColor(requireContext(),R.color.tart_orange))
-                }else{
-                    txtFav.setColorFilter(ContextCompat.getColor(requireContext(),R.color.white))
+            viewModel.isFavorite.observe(viewLifecycleOwner) { data ->
+                isFav = data
+                if (data) {
+                    txtFav.setColorFilter(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.tart_orange
+                        )
+                    )
+                } else {
+                    txtFav.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white))
 
                 }
 
@@ -113,10 +131,10 @@ class DetailFragment : Fragment() {
 
             txtFav.setOnClickListener {
 
-                    if (isFav){
-                        viewModel.deleteMovie(entity)
-                    }else{
-                        viewModel.saveMovie(entity)
+                if (isFav) {
+                    viewModel.deleteMovie(entity)
+                } else {
+                    viewModel.saveMovie(entity)
 
                 }
 
@@ -127,7 +145,7 @@ class DetailFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        _binding=null
+        _binding = null
     }
 
 

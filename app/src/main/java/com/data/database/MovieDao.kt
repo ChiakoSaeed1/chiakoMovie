@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MovieDao {
-
     @Insert(onConflict = REPLACE)
     suspend fun saveMovie(entity: MovieEntity)
 
