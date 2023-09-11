@@ -3,6 +3,7 @@ package com.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.data.cache.CacheEntity
 import com.data.models.ResponseGenres
 import com.data.models.ResponseTopTv
 import com.data.repository.RepositoryTop
@@ -27,6 +28,11 @@ class ViewModelTop @Inject constructor(private val repository:RepositoryTop):Vie
         topData.postValue(MyResponse.LOADING())
         val response=repository.apiTop(id)
         topData.postValue(BaseResponse(response).generateApi())
+
+        val cache=topData.value?.data
+        if (cache != null) {
+            offlineCache(cache)
+        }
     }
     fun loadPopData(id:Int)=viewModelScope.launch {
         popData.postValue(MyResponse.LOADING())
@@ -51,6 +57,17 @@ class ViewModelTop @Inject constructor(private val repository:RepositoryTop):Vie
         val response=repository.apiGenres()
         apiGenres.postValue(BaseResponse(response).generateApi())
 
+    }
+
+    //cache
+    private fun saveCache(entity: CacheEntity)=viewModelScope.launch {
+        repository.saveCache(entity)
+    }
+    val readCache=repository.readCache
+
+    private fun offlineCache(response:ResponseTopTv){
+        val entity=CacheEntity(0,response)
+        saveCache(entity)
     }
 
 }
