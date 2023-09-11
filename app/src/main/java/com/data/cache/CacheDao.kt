@@ -15,5 +15,5 @@ interface CacheDao {
     suspend fun saveCache(cacheEntity: CacheEntity)
 
     @Query("SELECT * FROM $CACHE_TABLE_ENTITY")
-    fun getAllCache():Flow<List<ResponseTopTv>>
+    fun getAllCache():Flow<List<CacheEntity>>
 }

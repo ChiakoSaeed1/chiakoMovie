@@ -69,6 +69,7 @@ class MainFragment : Fragment() {
                     is MyResponse.SUCCESS -> {
                         load.isShown(false, container)
                         data.data!!.data.let {
+
                             autoScroll(it!!)
                             if (it.isNotEmpty()) {
                                 adapterTop.setData(it)
@@ -237,10 +238,10 @@ class MainFragment : Fragment() {
                     LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false), adapterTop
                 )
                 if (dataBase.isNotEmpty()){
-                    dataBase[0].data?.let {
-                        adapterTop.setData(it)
-                        autoScroll(it)
-                    }
+                   dataBase[0].response.data.let {
+                       adapterTop.setData(it!!)
+                       autoScroll(it)
+                   }
                 }else{
                     viewModel.loadTopData(5)
                 }
